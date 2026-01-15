@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ProEdit PWA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#007bff">
+</head>
+<body>
+    <div class="app-container">
+        <header><h1>ProEdit</h1></header>
+        
+        <div class="canvas-area">
+            <canvas id="mainCanvas"></canvas>
+            <p id="placeholder-text">Upload a photo to start</p>
+        </div>
+
+        <div class="controls">
+            <input type="file" id="upload" hidden accept="image/*">
+            <button class="primary-btn" onclick="document.getElementById('upload').click()">+ Open Photo</button>
+            
+            <div class="sliders">
+                <div class="slider-row">
+                    <span>Brightness</span>
+                    <input type="range" id="brightness" min="0" max="200" value="100">
+                </div>
+                <div class="slider-row">
+                    <span>Contrast</span>
+                    <input type="range" id="contrast" min="0" max="200" value="100">
+                </div>
+                <div class="slider-row">
+                    <span>Saturation</span>
+                    <input type="range" id="saturate" min="0" max="200" value="100">
+                </div>
+            </div>
+
+            <div class="filter-btns">
+                <button onclick="setFilter('none')">Normal</button>
+                <button onclick="setFilter('grayscale(100%)')">B&W</button>
+                <button onclick="setFilter('sepia(100%)')">Retro</button>
+            </div>
+            
+            <button id="download" class="save-btn">Save to Phone</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
+        }
+    </script>
+</body>
+</html>
